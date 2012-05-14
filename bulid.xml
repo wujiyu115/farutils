@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project name="farutils.swc" basedir="." default="compc">
+	<property name="name" value="${ant.project.name}" />
+	<property name="FLEX_HOME"
+		value="D:\program files\Adobe\Adobe Flash Builder 4.6\sdks\4.6.0" />
+	<property name="flexlib" value="${FLEX_HOME}\frameworks" />
+	<!-- 这个是flex做的ant插件,必须先加载 -->
+	<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}\ant\lib\flexTasks.jar" />
+	<property name="output.file" value="${name}" />
+
+	<target name="compc">
+		<!-- 包含所有文件, 而不仅仅是as文件, 还包含了mxml文件和图片文件 -->
+		<fileset dir="${basedir}\src" id="sources">
+			<include name="**\**" />
+		</fileset>
+		<pathconvert property="included.classes" pathsep=" "
+			dirsep="." refid="sources">
+			<map from="\" to="/" />
+			<map from="src\" to="" />
+			<mapper>
+				<chainedmapper>
+					<globmapper from="${basedir}\*.as" to="*" />
+				</chainedmapper>
+			</mapper>
+		</pathconvert>
+		<!-- 打印到screen， 以使确认一下, 如果太多，可以删除这行 -->
+		<!--<echo message="${included.classes}" />-->
+		<compc output="${basedir}\bin\${output.file}" include-classes="${included.classes}">
+			<!-- 源文件所在路径 -->
+			<source-path path-element="${basedir}\src" />
+		</compc>
+	</target>
+	
+	<target name="removeTrace">
+				<replaceregexp match="trace(.*?);" replace="" flags="gs">
+				    <fileset dir="${basedir}\src" includes="**/*.as"/>
+				</replaceregexp>
+	</target>
+</project>
