@@ -1,4 +1,4 @@
-package   com.far.utils.data
+package   com.far.utils.manager
 {
 	
 import flash.display.Bitmap;

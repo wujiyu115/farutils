@@ -14,5 +14,18 @@ package com.far.utils.text
 			tf.bold;
 			return tf;
 		}
+
+		/**
+		 *得到特定颜色的html文字
+		 * @param fontSize
+		 * @param fontColor
+		 * @param string
+		 * @return
+		 *
+		 */
+		public static function getHtmlText(fontSize:int, fontColor:String, string:String):String
+		{
+			return ((((((("<font size='" + fontSize) + "' color='") + fontColor) + "'>") + string) + "</font>"));
+		}
 	}
 }

@@ -21,8 +21,13 @@ package  com.far.utils.manager.greenthreads {
 	import flash.events.ProgressEvent;
 	import flash.utils.getTimer;
 	
+	/**
+	 *一些复杂计算模拟线程如 寻路，图片编码 
+	 * @author Administrator
+	 * 
+	 */
 	[Event( name='complete', type='flash.events.Event' )]
-	[Event( name='timeout', type='org.greenthreads.ThreadEvent')]
+	[Event( name='timeout', type=' com.far.utils.manager.greenthreads.ThreadEvent')]
 	[Event( name='progress', type='mx.events.ProgressEvent')]
 	public class GreenThread extends EventDispatcher {
 		private var _maximum : Number = NaN;
