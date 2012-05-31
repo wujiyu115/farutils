@@ -21,7 +21,11 @@ package  com.far.utils.displayobject {
 		public static function init(stage : Stage) : void {
 			stageReference = stage;
 		}
-		
+		/**
+		 *根据自定义鼠标类名得到鼠标类 
+		 * @param cursorType
+		 * 
+		 */		
 		public static function show(cursorType : String) : void {
 			removeCurrent();
 			

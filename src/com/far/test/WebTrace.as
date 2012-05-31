@@ -5,7 +5,8 @@
 	import flash.net.SharedObject;
 	
 	/**
-	 * ...
+	 * WebTrace.init(stage);
+	 * WebTrace.trace();
 	 * @author wmy
 	 * 调试工具类
 	 */

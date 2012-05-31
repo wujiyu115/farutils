@@ -8,13 +8,13 @@ import flash.display.*;
 
 /**
  * DepthManager to manage the depth of display objects.
- * 
+ * 层深管理
  * @author iiley
  */
 public class DepthManager{
 	
 	/**
-	 * Bring the mc to all brother mcs' bottom.
+	 * 将mc放到父级的最低层
 	 * @param mc the mc to be set to bottom
 	 * @see #isBottom()
 	 */
@@ -27,7 +27,7 @@ public class DepthManager{
 	}
 	
 	/**
-	 * Bring the mc to all brother mcs' top.
+	 * 将mc放到父级最顶层
 	 */	
 	public static function bringToTop(mc:DisplayObject):void{
 		var parent:DisplayObjectContainer = mc.parent;
@@ -39,7 +39,7 @@ public class DepthManager{
 	}
 	
 	/**
-	 * Returns is the mc is on the top depths in DepthManager's valid depths.
+	 * 判断 mc是否在最顶端
 	 * Valid depths is that depths from MIN_DEPTH to MAX_DEPTH.
 	 */
 	public static function isTop(mc:DisplayObject):Boolean{
@@ -49,6 +49,7 @@ public class DepthManager{
 	}
 	
 	/**
+	 * 判断 mc是否在最底端
 	 * Returns if the mc is at bottom depth.
 	 * @param mc the mc to be set to bottom
 	 * @return is the mc is at the bottom
@@ -64,6 +65,7 @@ public class DepthManager{
 	}
 	
 	/**
+	 * mc是否在同级另一mc下
 	 * Return if mc is just first bebow the aboveMC.
 	 * if them don't have the same parent, whatever depth they has just return false.
 	 */
@@ -75,7 +77,7 @@ public class DepthManager{
 		return parent.getChildIndex(mc) == parent.getChildIndex(aboveMC)-1;
 	}
 	
-	/**
+	/**mc是否在同级另一mc上
 	 * Returns if mc is just first above the belowMC.
 	 * if them don't have the same parent, whatever depth they has just return false.
 	 * @see #isJustBelow

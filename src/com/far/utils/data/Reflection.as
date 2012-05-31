@@ -7,14 +7,14 @@ import flash.display.DisplayObject;
 import flash.system.ApplicationDomain;
 import flash.utils.getQualifiedClassName;
 /**
- * 
+ * 反射类
  * @author lake
  * 
  */
 public class Reflection
 {
 	/**
-	 * 
+	 * 得到显示对象
 	 * @param fullClassName
 	 * @param applicationDomain
 	 * @return 
@@ -26,7 +26,7 @@ public class Reflection
 		return createInstance(fullClassName, applicationDomain) as DisplayObject;
 	}
 	/**
-	 * 
+	 * 得到位图
 	 * @param fullClassName
 	 * @return 
 	 * 
@@ -35,12 +35,12 @@ public class Reflection
 	{
 		var displayObject:DisplayObject = createDisplayObjectInstance(fullClassName);
 		var bitmapData:BitmapData=new BitmapData(displayObject.width, displayObject.height,true,0xffffff);
-		bitmapData.draw(displayObject);
+		bitmapData.draw(displayObject); //draw方法。。
 		var bitmap:Bitmap=new Bitmap(bitmapData);
 		return bitmap;
 	}	
 	/**
-	 * 
+	 * 从指定域反射类
 	 * @param fullClassName
 	 * @param applicationDomain
 	 * @return 
@@ -57,7 +57,7 @@ public class Reflection
 		return null;		
 	}
 	/**
-	 * 
+	 * 得到类
 	 * @param fullClassName
 	 * @param applicationDomain
 	 * @return 
@@ -79,7 +79,7 @@ public class Reflection
 		return assetClass;		
 	}
 	/**
-	 * 
+	 * 得到对象的类全名
 	 * @param o
 	 * @return 
 	 * 
@@ -89,7 +89,7 @@ public class Reflection
 		return getQualifiedClassName(o);
 	}
 	/**
-	 * 
+	 * 得到实例的类名
 	 * @param o
 	 * @return 
 	 * 
@@ -104,7 +104,12 @@ public class Reflection
 		}
 		return name;
 	}
-	
+	/**
+	 *得到一个实例的包名 
+	 * @param o
+	 * @return 
+	 * 
+	 */	
 	public static function getPackageName(o:*):String
 	{
 		var name:String = getFullClassName(o);
