@@ -6,6 +6,16 @@ package com.far.utils.displayobject
 
 	public class DrawShape
 	{
+		
+		/**
+		 *画圆 
+		 * @param x
+		 * @param y
+		 * @param radius
+		 * @param color
+		 * @return 
+		 * 
+		 */		
 		public static function createCircle( x:Number, y:Number, radius:Number,color:uint=0x000000):Sprite
 		{
 			var sprite:Sprite=new Sprite();
