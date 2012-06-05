@@ -1,6 +1,8 @@
 package
 {
 
+	import com.far.base.compoment.text.RichTextField;
+	import com.far.base.compoment.text.plugins.IRTFPlugin;
 	import com.far.utils.load.NetLoad;
 	
 	import flash.display.Sprite;
@@ -13,7 +15,7 @@ package
 
 		public function farutils()
 		{
-			
+			var rich:IRTFPlugin;
 		}
 
 		
