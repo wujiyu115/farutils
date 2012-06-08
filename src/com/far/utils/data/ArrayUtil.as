@@ -178,5 +178,10 @@ package com.far.utils.data
 			b = a^b;
 			a = a^b;
 		}
+		
+		/**使数组乱序*/
+		public static function randomArray(arr:Array):void{
+			arr.sort(function(){return Math.random()>0.5?1:-1});
+		}
 	}
 }
