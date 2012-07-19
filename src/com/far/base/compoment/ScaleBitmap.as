@@ -16,7 +16,7 @@
  */
 
 package  com.far.base.compoment{
-	import flash.display.Bitmap;	import flash.display.BitmapData;	import flash.geom.Matrix;	import flash.geom.Rectangle;	
+	import flash.display.Bitmap;	import flash.display.BitmapData;	import flash.geom.Matrix;	import flash.geom.Rectangle;	
 	public class ScaleBitmap extends Bitmap {
 
 		// ------------------------------------------------
