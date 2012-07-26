@@ -24,7 +24,7 @@ function loading(num:Number) {
 }
 }
  */
-package  com.far.utils.text.font{
+package  com.far.utils.interactive.font{
 	import flash.display.MovieClip;
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;

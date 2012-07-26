@@ -1,4 +1,4 @@
-package com.far.utils.text.mouse
+package com.far.utils.interactive.mouse
 {
 	import flash.display.BitmapData;
 	import flash.ui.Mouse;

@@ -1,6 +1,6 @@
 ﻿// Copyright @ shch8.com All Rights Reserved At 2010-1-25
 //开发：商创技术（www.shch8.com）望月狼
-package  com.far.utils.text.font
+package  com.far.utils.interactive.font
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;

@@ -24,7 +24,7 @@
 * THE SOFTWARE.
 */
 
-package com.far.utils.text.keyboard
+package com.far.utils.interactive.keyboard
 {
 	import flash.events.KeyboardEvent;
 	import flash.events.Event;

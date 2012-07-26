@@ -1,5 +1,5 @@
 
-package com.far.utils.text
+package com.far.utils.interactive
 {
 
 	/**

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package  com.far.utils.text.json {
+package  com.far.utils.interactive.json {
 	import flash.errors.EOFError;
 	import flash.events.IEventDispatcher;
 	import flash.events.ProgressEvent;

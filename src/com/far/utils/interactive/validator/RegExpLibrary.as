@@ -1,4 +1,4 @@
-package  com.far.utils.text.validator
+package  com.far.utils.interactive.validator
 {
 	public class RegExpLibrary
 	{

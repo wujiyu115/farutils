@@ -6,7 +6,7 @@
  * Dual licensed under the MIT (MIT-LICENSE.txt)
  * and GPL (GPL-LICENSE.txt) licenses.
  */
-package com.far.utils.text.mouse
+package com.far.utils.interactive.mouse
 {
 	import flash.display.DisplayObject;
 	import flash.display.InteractiveObject;

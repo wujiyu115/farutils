@@ -18,6 +18,7 @@
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * 固定长度二维数组
  */
 package de.polygonal.ds
 {
@@ -151,6 +152,9 @@ package de.polygonal.ds
 		{
 			if (w < 1 || h < 1)
 				throw new Error("illegal size");
+			
+			if(w==_w&&h==_h)
+				return;
 			
 			var copy:Array = _a.concat();
 			
