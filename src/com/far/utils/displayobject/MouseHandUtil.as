@@ -12,7 +12,6 @@ package com.far.utils.displayobject
 		/**mc使用手形*/
 		public static function useHandCursor(mc:MovieClip):void
 		{
-			mc.useHandCursor=true;
 			mc.buttonMode=true;
 			mc.mouseChildren=false;
 

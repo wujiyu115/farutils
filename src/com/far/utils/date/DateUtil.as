@@ -19,15 +19,7 @@ package com.far.utils.date
 			{
 				throw new Error("Date is Null!");
 			}
-			var sourceDateTimes :Number = sourceDate.getTime();
-			var distDateTimes :Number = distDate.getTime();
-			if(sourceDateTimes > distDateTimes)
-			{
-				return true;
-			}else
-			{
-				return false;
-			}
+			return sourceDate.getTime()>distDate.getTime();
 		}
 	}
 }

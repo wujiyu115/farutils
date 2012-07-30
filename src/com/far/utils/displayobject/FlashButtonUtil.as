@@ -19,8 +19,8 @@ package com.far.utils.displayobject
 			timer=new Timer(time);
 			timer.addEventListener(TimerEvent.TIMER, timerHandler);
 			timer.start();
-			button.addEventListener(MouseEvent.MOUSE_OVER, overHandler);
-			button.addEventListener(MouseEvent.MOUSE_OUT, overHandler);
+			button.addEventListener(MouseEvent.ROLL_OVER, overHandler);
+			button.addEventListener(MouseEvent.ROLL_OUT, overHandler);
 		}
 
 		protected function overHandler(event:MouseEvent):void
@@ -28,13 +28,13 @@ package com.far.utils.displayobject
 
 			switch (event.type)
 			{
-				case MouseEvent.MOUSE_OVER:
+				case MouseEvent.ROLL_OVER:
 				{
 					timer.reset();
 					button.gotoAndStop(2);
 					break;
 				}
-				case MouseEvent.MOUSE_OUT:
+				case MouseEvent.ROLL_OUT:
 				{
 					timer.start();
 					button.gotoAndStop(1);
@@ -63,8 +63,8 @@ package com.far.utils.displayobject
 
 		public function remove():void
 		{
-			button.removeEventListener(MouseEvent.MOUSE_OVER, overHandler);
-			button.removeEventListener(MouseEvent.MOUSE_OUT, overHandler);
+			button.removeEventListener(MouseEvent.ROLL_OVER, overHandler);
+			button.removeEventListener(MouseEvent.ROLL_OUT, overHandler);
 			if (timer.running)
 			{
 				timer.stop();

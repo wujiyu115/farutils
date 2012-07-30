@@ -19,16 +19,14 @@ package com.far.test
 		 * @return
 		 *
 		 */
-		public static function testFun(fun:Function):String
+		public static function testFun(fun:Function,arugs:Array):String
 		{
-			if (fun == null)
-			{
+			if (!fun)
 				return "";
-			}
 			var beginTime:Number=getTimer();
-			fun.apply(null);
+			fun.apply(null,arugs);
 			var afterTime:Number=getTimer();
-			return ((afterTime - beginTime) / 1000).toString();
+			return (afterTime - beginTime).toString();
 		}
 	}
 }

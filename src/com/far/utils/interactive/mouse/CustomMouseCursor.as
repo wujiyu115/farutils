@@ -1,4 +1,4 @@
-package  com.far.utils.displayobject {
+package  com.far.utils.interactive.mouse {
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.MouseEvent;

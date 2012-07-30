@@ -1,30 +1,23 @@
 package
 {
 
+	import com.far.base.compoment.ScaleBitmap;
+	import com.far.utils.collisions.HitTest;
+	import com.far.utils.displayobject.DrawShape;
+	
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
-	import flash.events.MouseEvent;
-	import flash.text.TextField;
-	import flash.text.TextFieldType;
 
 
-
+	[SWF(width="1440", height="900")]
 	public class farutils extends Sprite
 	{
+
 		public function farutils()
-		{
-			 var txtfield:TextField = new TextField();
-			 txtfield.type = TextFieldType.INPUT;
-			 txtfield.width=100;
-			 txtfield.height = 20;
-			 txtfield.border = true;
-			 txtfield.borderColor=0;
-			 ChineseText(txtfield);
-			 addChild(txtfield);
+		{	
+			
 		}
 
-		public static function ChineseText(variable:TextField):void{
-			variable.restrict="一-颌";
-		
-		}
+
 	}
 }
