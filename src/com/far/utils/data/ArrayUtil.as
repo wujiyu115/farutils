@@ -183,5 +183,32 @@ package com.far.utils.data
 		public static function randomArray(arr:Array):void{
 			arr.sort(function(){return Math.random()>0.5?1:-1});
 		}
+		
+		/**二进制表示状态值   如111101 ，1表示这种道具已领取,每一位代表一种道具
+		 * target  表示的int值
+		 * total    表示总共的道具数
+		 * return  Array  表示每一个道具的状态值
+		 * */
+		public static function binaryString(target:int, total:int):Array
+		{
+			var str:String=target.toString(2);
+			var result:Array=[];
+			if (total < str.length + 1)
+				return result;
+			str=str.split("").reverse().join("");
+			for (var i:int=0; i < total; i++)
+			{
+				if (int(str.charAt(i)))
+				{
+					result[i]=1;
+				}
+				else
+				{
+					result[i]=0;
+				}
+			}
+			return result;
+			
+		}
 	}
 }
