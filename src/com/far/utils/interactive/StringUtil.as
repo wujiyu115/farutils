@@ -133,5 +133,24 @@ package com.far.utils.interactive
 			}
 			return true;
 		}
+
+		/**
+		  *反转字符串1  效率快过2*/
+		public static function reverseString(strScr:String):String
+		{
+			var strTarget:String="";
+			for (var i:int=strScr.length - 1; i >= 0; --i)
+			{
+				strTarget+=strScr.charAt(i);
+			}
+			return strTarget;
+		}
+
+		/**
+		 *反转字符串2*/
+		public static function reverseString2(strScr:String):String
+		{
+			return strScr.split("").reverse().join("");
+		}
 	}
 }
