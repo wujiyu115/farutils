@@ -4,7 +4,10 @@ package com.far.compoments
 	import flash.display.Sprite;
 	import flash.geom.Rectangle;
 
-	public class GreenhandSprite extends Sprite
+	/**
+	 * 新手引导
+	 * */
+	public class GreenHandSprite extends Sprite
 	{
 		public function GreenhandSprite()
 		{

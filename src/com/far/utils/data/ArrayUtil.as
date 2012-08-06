@@ -164,26 +164,31 @@ package com.far.utils.data
 			Bytearray copy: 176ms
 			Array slice(): 19ms
 			Array concat(): 8ms
-	    * */
+		* */
 		public static function clone(arr:Array):Array
 		{
 			return arr.concat();
 		}
-		
+
 		/**交换两个值
 		 * 效率高于临时变量300%
 		 * */
-		public static function swapValue(a:*,b:*):void{
-			a = a^b;
-			b = a^b;
-			a = a^b;
+		public static function swapValue(a:*, b:*):void
+		{
+			a=a ^ b;
+			b=a ^ b;
+			a=a ^ b;
 		}
-		
+
 		/**使数组乱序*/
-		public static function randomArray(arr:Array):void{
-			arr.sort(function(){return Math.random()>0.5?1:-1});
+		public static function randomArray(arr:Array):void
+		{
+			arr.sort(function()
+			{
+				return Math.random() > 0.5 ? 1 : -1
+			});
 		}
-		
+
 		/**二进制表示状态值   如111101 ，1表示这种道具已领取,每一位代表一种道具
 		 * target  表示的int值
 		 * total    表示总共的道具数
@@ -195,20 +200,13 @@ package com.far.utils.data
 			var result:Array=[];
 			if (total < str.length + 1)
 				return result;
-			str=str.split("").reverse().join("");
-			for (var i:int=0; i < total; i++)
+			result=str.split("").reverse();
+			for (var i:int=result.length; i < total; i++)
 			{
-				if (int(str.charAt(i)))
-				{
-					result[i]=1;
-				}
-				else
-				{
-					result[i]=0;
-				}
+				result[i]=0;
 			}
 			return result;
-			
+
 		}
 	}
 }
