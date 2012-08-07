@@ -4,39 +4,21 @@ package com.far.utils.manager
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
-	import flash.display.MovieClip;
-	import flash.display.Shape;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.utils.getTimer;
 
 	/**
 	 * _stage          确保在最底层。如果其下还有容器，点击不会穿透
-	 *_careClasses 关注的应为_stage的子级，不是孙级, 关注的对象层级越少越好
 	 * @author Administrator
 	 *
 	 */
 	public class InteractiveManager
 	{
-		//关注的类
-		private var _careClasses:Array;
 		private var _stage:DisplayObjectContainer;
-
 		public function InteractiveManager()
 		{
-			careClasses=[];
 		}
-
-		public function set careClasses(value:Array):void
-		{
-			_careClasses=value;
-		}
-
-		public function addCareClass(cls:Class):void
-		{
-			_careClasses.push(cls);
-		}
-
 		public function initStage(stage:DisplayObjectContainer):void
 		{
 			_stage=stage;
@@ -75,34 +57,26 @@ package com.far.utils.manager
 				{
 					obj=obj.parent;
 				}
-				if (_careClasses.indexOf(obj["constructor"]) != -1)
+				var drawbitmapData:BitmapData;
+				if (bits is Bitmap)
 				{
-					var drawbitmapData:BitmapData;
-					if (bits is Bitmap)
-					{
-						drawbitmapData=(bits as Bitmap).bitmapData;
-					}
-					else
-					{
-						drawbitmapData=new BitmapData(obj.width, obj.height, true, 0);
-						drawbitmapData.draw(obj);
-					}
-					var loaclPoint:Point=obj.globalToLocal(point);
-					if (drawbitmapData.getPixel(loaclPoint.x, loaclPoint.y) != 0x00)
-					{
-						obj.dispatchEvent(new MouseEvent(eventtype, true, true));
-						break;
-					}
-					if (!(bits is Bitmap))
-					{
-						drawbitmapData.dispose();
-						drawbitmapData=null;
-					}
+					drawbitmapData=(bits as Bitmap).bitmapData;
 				}
 				else
 				{
+					drawbitmapData=new BitmapData(bits.width, bits.height, true, 0);
+					drawbitmapData.draw(bits);
+				}
+				var loaclPoint:Point=obj.globalToLocal(point);
+				if (drawbitmapData.getPixel32(loaclPoint.x, loaclPoint.y) != 0x00)
+				{
 					obj.dispatchEvent(new MouseEvent(eventtype, true, true));
 					break;
+				}
+				if (!(bits is Bitmap))
+				{
+					drawbitmapData.dispose();
+					drawbitmapData=null;
 				}
 			}
 
