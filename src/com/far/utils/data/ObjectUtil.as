@@ -83,6 +83,26 @@ package com.far.utils.data
 		{
 			return (typeof(value) == "function" || value is Function);
 		}
+		
+		/**
+		 * int 转进制字符串
+		 * @param value
+		 * @return 
+		 * 
+		 */	
+		public static function int2String(target:int,bin:int=10):String{
+		  return target.toString(bin);
+		}
+		/**
+		 * 进制字符串 int 
+		 * @param value
+		 * @return 
+		 * 
+		 */	
+		public static function str2Int(str:String,bin:int=10):int{
+			return parseInt(str,bin);
+		}
+		
 	}
 
 }
