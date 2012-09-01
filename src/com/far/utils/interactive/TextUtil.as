@@ -92,5 +92,22 @@ package com.far.utils.interactive
 			return _len;
 		}
 		
+		
+		/**
+		 *删除换行符 
+		 * @param param1
+		 * @return 
+		 * 
+		 */		
+		public static function deleteNewlineChars(param1:String) : String
+		{
+			if (param1 == null)
+			{
+				return null;
+			}
+			param1 = param1.replace("\r", "").replace("\n", "");
+			return param1;
+		}
+		
 	}
 }
