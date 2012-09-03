@@ -27,7 +27,7 @@ package  com.far.utils.load
 			return new NetLoad;
 		}
 		/*加载XML文件,(路径，XML接收函数，是否使用中文编码)*/
-		public function loadXML(_filePath:String, _getXML:Function = null,gbCode:Boolean=true,_useXML:Boolean=true):URLLoader {
+		public function loadXML(_filePath:String, _getXML:Function = null,gbCode:Boolean=false,_useXML:Boolean=true):URLLoader {
 			getXML = _getXML;
 			useXML=_useXML;
 			var myLoader:URLLoader = new URLLoader();
