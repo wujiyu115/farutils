@@ -13,20 +13,20 @@
 	 */
 	public class JLog extends Object
 	{
-		private static var _JLogEnabled:Boolean;
-		public static var TRACE_AUTHOR:String="anyone";
+		private static var _enable:Boolean=true;
+		public static var author:String="anyone";
 
 		public function JLog()
 		{
 			throw new Error("请使用静态方法");
 		}
 
-		public static function set JLogEnabled(value:Boolean):void
+		public static function set enable(value:Boolean):void
 		{
-			_JLogEnabled=value;
+			_enable=value;
 			if (jLogPanel)
 			{
-				if (_JLogEnabled)
+				if (_enable)
 				{
 					jLogPanel.openJLogPanel();
 				}
@@ -38,9 +38,9 @@
 			return;
 		}
 
-		public static function get JLogEnabled():Boolean
+		public static function get enable():Boolean
 		{
-			return _JLogEnabled;
+			return _enable;
 		}
 
 		public static function get jLogPanel():JLogPanel
@@ -51,14 +51,14 @@
 		public static function trace(message:String, color:uint=0x000000, addtime:Boolean=false, author:String="anyone"):void
 		{
 			var _loc_4:String="";
-			if (TRACE_AUTHOR == "anyone")
+			if (author == "anyone")
 			{
 				_loc_4=String(message);
 				jLogPanel.addMessage(_loc_4, color, addtime);
 			}
 			else
 			{
-				if (author != TRACE_AUTHOR)
+				if (author != author)
 				{
 					return;
 				}
@@ -99,7 +99,6 @@ class JLogPanel extends Sprite
 	private function addToStage(event:Event):void
 	{
 		this.removeEventListener(Event.ADDED_TO_STAGE, addToStage);
-		this.visible=false;
 		this.initView();
 		this.initListener();
 		return;
@@ -117,19 +116,8 @@ class JLogPanel extends Sprite
 	{
 		if (event.keyCode != CTRL_KEY)
 		{
+			JLog.enable=!JLog.enable;
 		}
-		if (event.keyCode == J_KEY)
-		{
-			this._keyDic[event.keyCode]=true;
-			if (this._keyDic[CTRL_KEY])
-			{
-			}
-			if (this._keyDic[J_KEY])
-			{
-				JLog.JLogEnabled=!JLog.JLogEnabled;
-			}
-		}
-		return;
 	}
 
 	private function onKeyUp(event:KeyboardEvent):void
@@ -328,7 +316,7 @@ class JLogPanel extends Sprite
 
 	private function closeSpriteOnClick(event:MouseEvent):void
 	{
-		JLog.JLogEnabled=false;
+		JLog.enable=false;
 		return;
 	}
 

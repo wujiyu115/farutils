@@ -1,47 +1,23 @@
 package
 {
-	import com.far.test.Stats;
-	import com.far.utils.manager.InteractiveManager;
-	
-	import flash.display.Bitmap;
+	import com.far.test.JLog;
 	import flash.display.Sprite;
 
 	[SWF(width="1440", height="900")]
 	public class farutils extends Sprite
 	{
 
-
 		public function farutils()
 		{
-			var s:Stats=new Stats();
-			s.x=200;
-			addChild(s);
-			var imana:InteractiveManager=new InteractiveManager();
-			imana.initStage(this);
-			for (var i:int=0; i < 1000; i++)
-			{
-				var sp:ShotSprite=new ShotSprite();
-				sp.name="sp" + i;
-				addChild(sp);
-			}
-
+//			addChild(JLog.jLogPanel);
+//			JLog.author="far";
+//			JLog.trace("hello,world",0xff0000,true,"far");
+//			JLog.trace("anyone Trace",0x000000,false);
+//			JLog.trace("it's a test",0x000000,true,"far");
+			
+			
+			 trace(1073741821&1073741824);
 		}
 
-
 	}
 }
-import flash.display.Bitmap;
-import flash.display.Sprite;
-
-class ShotSprite extends Sprite
-{
-	[Embed(source="shot.png")]
-	public static var Shot:Class;
-
-	public function ShotSprite():void
-	{
-		var bitm:Bitmap=new Shot() as Bitmap;
-		addChild(bitm);
-	}
-}
-
