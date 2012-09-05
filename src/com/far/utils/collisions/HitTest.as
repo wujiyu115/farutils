@@ -1,61 +1,100 @@
-/*
-* Author: Richard Lord
-* Copyright (c) Richard Lord 2007
-* http://www.richardlord.net/
-* 
-* 碰撞检测类
-*/
-
-package  com.far.utils.collisions
+package com.far.utils.collisions  
 {
+	
 	import flash.display.BitmapData;
 	import flash.display.BlendMode;
 	import flash.display.DisplayObject;
 	import flash.geom.ColorTransform;
 	import flash.geom.Matrix;
-	import flash.geom.Rectangle;		
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	
-	public class HitTest 
+	public class HitTest
 	{
-		/**
-		 *两个矩阵是否重叠 
-		 * @param r1
-		 * @param r2
-		 * @return 
-		 * 
-		 */		
-		public static function hitTestRect( r1:Rectangle, r2:Rectangle ):Boolean
+		
+		public static function complexHitTestObject( target1:DisplayObject, target2:DisplayObject,  accurracy:Number = 1 ):Boolean
 		{
-			return r1.top < r2.bottom && r1.bottom > r2.top
-				&& r1.left < r2.right && r1.right > r2.left;
+			return complexIntersectionRectangle( target1, target2, accurracy ).width != 0;
 		}
 		
-		/**
-		 *两个对象是否重叠 
-		 * @param d1
-		 * @param d2
-		 * @return 
-		 * 
-		 */		
-		public static function hitTestObject( d1:DisplayObject, d2:DisplayObject ):Boolean
+		public static function intersectionRectangle( target1:DisplayObject, target2:DisplayObject ):Rectangle
 		{
-			if( !d1.hitTestObject( d2 ) )
-			{
-				return false;
-			}
-			var bounds:Rectangle = d1.getRect( d1 );
-			var bmd:BitmapData = new BitmapData( bounds.width, bounds.height, false, 0 );
+			// If either of the items don't have a reference to stage, then they are not in a display list
+			// or if a simple hitTestObject is false, they cannot be intersecting.
+			if( !target1.root || !target2.root || !target1.hitTestObject( target2 ) ) return new Rectangle();
 			
-			var matrix:Matrix = d1.transform.matrix.clone();
-			matrix.translate( -bounds.left, -bounds.top );
-			bmd.draw( d1, matrix, new ColorTransform( 0, 0, 0, 0, 255, 0, 0, 255 ) );
+			// Get the bounds of each DisplayObject.
+			var bounds1:Rectangle = target1.getBounds( target1.root );
+			var bounds2:Rectangle = target2.getBounds( target2.root );
 			
-			matrix = d2.transform.matrix.clone();
-			matrix.translate( -bounds.left, -bounds.top );
-			bmd.draw( d2, matrix, new ColorTransform( 0, 0, 0, 0, 0, 0, 255, 255 ), BlendMode.ADD );
+			// Determine test area boundaries.
+			var intersection:Rectangle = new Rectangle();
+			intersection.x   = Math.max( bounds1.x, bounds2.x );
+			intersection.y    = Math.max( bounds1.y, bounds2.y );
+			intersection.width      = Math.min( ( bounds1.x + bounds1.width ) - intersection.x, ( bounds2.x + bounds2.width ) - intersection.x );
+			intersection.height = Math.min( ( bounds1.y + bounds1.height ) - intersection.y, ( bounds2.y + bounds2.height ) - intersection.y );
 			
-			var rect:Rectangle = bmd.getColorBoundsRect( 0xFFFFFF, 0xFF00FF );
-			return rect.width > 0;
+			return intersection;
 		}
+		
+		public static function complexIntersectionRectangle( target1:DisplayObject, target2:DisplayObject, accurracy:Number = 1 ):Rectangle
+		{                     
+			if( accurracy <= 0 ) throw new Error( "ArgumentError: Error #5001: Invalid value for accurracy", 5001 );
+			
+			// If a simple hitTestObject is false, they cannot be intersecting.
+			if( !target1.hitTestObject( target2 ) ) return new Rectangle();
+			
+			var hitRectangle:Rectangle = intersectionRectangle( target1, target2 );
+			// If their boundaries are no interesecting, they cannot be intersecting.
+			if( hitRectangle.width * accurracy <1 || hitRectangle.height * accurracy <1 ) return new Rectangle();
+			
+			var bitmapData:BitmapData = new BitmapData( hitRectangle.width * accurracy, hitRectangle.height * accurracy, false, 0x000000 ); 
+			
+			// Draw the first target.
+			bitmapData.draw( target1, HitTest.getDrawMatrix( target1, hitRectangle, accurracy ), new ColorTransform( 1, 1, 1, 1, 255, -255, -255, 255 ) );
+			// Overlay the second target.
+			bitmapData.draw( target2, HitTest.getDrawMatrix( target2, hitRectangle, accurracy ), new ColorTransform( 1, 1, 1, 1, 255, 255, 255, 255 ), BlendMode.DIFFERENCE );
+			
+			// Find the intersection.
+			var intersection:Rectangle = bitmapData.getColorBoundsRect( 0xFFFFFFFF,0xFF00FFFF );
+			
+			bitmapData.dispose();
+			
+			// Alter width and positions to compensate for accurracy
+			if( accurracy != 1 )
+			{
+				intersection.x /= accurracy;
+				intersection.y /= accurracy;
+				intersection.width /= accurracy;
+				intersection.height /= accurracy;
+			}
+			
+			intersection.x += hitRectangle.x;
+			intersection.y += hitRectangle.y;
+			
+			return intersection;
+		}
+		
+		
+		protected static function getDrawMatrix( target:DisplayObject, hitRectangle:Rectangle, accurracy:Number ):Matrix
+		{
+			var localToGlobal:Point;;
+			var matrix:Matrix;
+			
+			var rootConcatenatedMatrix:Matrix = target.root.transform.concatenatedMatrix;
+			
+			localToGlobal = target.localToGlobal( new Point( ) );
+			matrix = target.transform.concatenatedMatrix;
+			matrix.tx = localToGlobal.x - hitRectangle.x;
+			matrix.ty = localToGlobal.y - hitRectangle.y;
+			
+			matrix.a = matrix.a / rootConcatenatedMatrix.a;
+			matrix.d = matrix.d / rootConcatenatedMatrix.d;
+			if( accurracy != 1 ) matrix.scale( accurracy, accurracy );
+			
+			return matrix;
+		}
+		
 	}
-}
+	
+} 

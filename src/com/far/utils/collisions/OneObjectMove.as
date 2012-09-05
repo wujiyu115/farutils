@@ -1,6 +1,8 @@
 package com.far.utils.collisions
 {
 	import flash.display.DisplayObject;
+	import flash.display.MovieClip;
+	import flash.display.Stage;
 
 	/**
 	 * @author far
@@ -32,7 +34,7 @@ package com.far.utils.collisions
 			var len:int=_objs.length;
 			for (var i:int=len - 1; i >= 0; i--)
 			{
-				if (HitTest.hitTestObject(_target, _objs[i]))
+				if (HitTest.complexHitTestObject(_target, _objs[i]))
 				{
 					check.push(_objs[i]);
 					if (one)
@@ -42,5 +44,6 @@ package com.far.utils.collisions
 			return check;
 
 		}
+		
 	}
 }
