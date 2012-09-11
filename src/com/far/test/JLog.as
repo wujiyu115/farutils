@@ -3,18 +3,17 @@
 
 	/**
 	 * 测试类
-	 * @author far
-	 * addChild(JLog.jLogPanel);
-			JLog.JLogEnabled=true;
-			JLog.TRACE_AUTHOR="Jason";
-			JLog.trace("anyone Trace",0xff0000,true,"Jason");
-			JLog.trace("anyone Trace",0x000000,false);
-	 * ctrl  隐藏关闭
+	 * 
+	 *  addChild(JLog.instance);
+	 *	JLog.author="Jason";
+	 *	JLog.trace("hello",0xff0000,true,"Jason");
+	 *	JLog.trace("anyone",0x000000,false);
+	 *  ctrl  隐藏关闭
 	 */
 	public class JLog extends Object
 	{
 		private static var _enable:Boolean=true;
-		public static var author:String="anyone";
+		public static var author:String="";
 
 		public function JLog()
 		{
@@ -24,15 +23,15 @@
 		public static function set enable(value:Boolean):void
 		{
 			_enable=value;
-			if (jLogPanel)
+			if (instance)
 			{
 				if (_enable)
 				{
-					jLogPanel.openJLogPanel();
+					instance.openJLogPanel();
 				}
 				else
 				{
-					jLogPanel.closeJLogPanel();
+					instance.closeJLogPanel();
 				}
 			}
 			return;
@@ -43,40 +42,42 @@
 			return _enable;
 		}
 
-		public static function get jLogPanel():JLogPanel
+		public static function get instance():JLogPanel
 		{
 			return JLogPanel.instance;
 		}
 
-		public static function trace(message:String, color:uint=0x000000, addtime:Boolean=false, author:String="anyone"):void
+		public static function trace(message:String, authors:String="",color:uint=0x000000):void
 		{
 			var _loc_4:String="";
-			if (author == "anyone")
+			if (authors == "")
 			{
 				_loc_4=String(message);
-				jLogPanel.addMessage(_loc_4, color, addtime);
+				instance.addMessage(_loc_4, color);
 			}
 			else
 			{
-				if (author != author)
+				if (author != authors)
 				{
 					return;
 				}
 				_loc_4=String(message);
-				jLogPanel.addMessage(_loc_4, color, addtime);
+				instance.addMessage(_loc_4, color);
 			}
-			return;
 		}
 
 	}
 }
 
+import com.far.test.JLog;
+
 import flash.display.*;
 import flash.events.*;
 import flash.geom.*;
 import flash.text.*;
+import flash.ui.ContextMenu;
+import flash.ui.ContextMenuItem;
 import flash.utils.*;
-import com.far.test.JLog;
 
 class JLogPanel extends Sprite
 {
@@ -100,6 +101,7 @@ class JLogPanel extends Sprite
 	{
 		this.removeEventListener(Event.ADDED_TO_STAGE, addToStage);
 		this.initView();
+		this.initContextMenu();
 		this.initListener();
 		return;
 	}
@@ -153,6 +155,7 @@ class JLogPanel extends Sprite
 		_loc_1.bold=true;
 		_loc_1.size=10;
 		this._message.defaultTextFormat=_loc_1;
+		this._message.text=getTimeStr();
 		addChild(this._message);
 		return;
 	}
@@ -371,15 +374,10 @@ class JLogPanel extends Sprite
 		return;
 	}
 
-	public function addMessage(str:String, color:uint=0x000000, addTime:Boolean=false):void
+	public function addMessage(str:String, color:uint=0x000000):void
 	{
-		var message:String="";
-		if (addTime)
-		{
-			message="<p>" + getTimeStr() + "</p>";
-		}
-		message+="<p><font color=\'#" + color.toString(16) + "\'>" + str + "</p>";
-		this._message.htmlText=this._message.htmlText + message;
+		var message:String="<p><font color=\'#" + color.toString(16) + "\'>" + str + "</p>";
+		this._message.htmlText=this._message.htmlText + message;  
 		return;
 	}
 
@@ -429,6 +427,17 @@ class JLogPanel extends Sprite
 			_instance=new JLogPanel;
 		}
 		return _instance;
+	}
+	
+	private function   initContextMenu():void{
+		var myContextMenu:ContextMenu = new ContextMenu();
+		var item:ContextMenuItem = new ContextMenuItem("清除内容");
+		myContextMenu.customItems.push(item);
+		item.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, menuSelectHandler);
+		this.contextMenu = myContextMenu;
+	}
+	private function menuSelectHandler(event:ContextMenuEvent):void{
+		this._message.text ="";
 	}
 
 }
