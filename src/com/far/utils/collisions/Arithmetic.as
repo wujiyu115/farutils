@@ -131,5 +131,32 @@ package  com.far.utils.collisions
 			}
 			return  false;
 		}
+		
+		/**
+		 *导弹追踪算法  
+		 * @param bomb
+		 * @param player
+		 * 
+		 */		
+		public static function bombFllow(bomb:Object,player:Object):void{
+			var omega:int =5 ;//导弹转角速度
+			var speedBomb:int =10 ;//导弹速度
+			var x : Number = bomb.x - player.x;
+			var y : Number = bomb.y - player.y;
+			
+			var angle : Number = (270 + Math.atan2(y, x) * 180 / Math.PI) % 360;
+			var angleC : Number = (angle - bomb.rotation + 360) % 360;
+			var dir : Number = angleC < 180 ? 1 : -1;
+			if (angleC < 180 && angleC > omega  || angleC > 180 && 360 - angleC > omega)
+			{
+				bomb.rotation = bomb.rotation + omega * dir;
+			}
+			else
+			{
+				bomb.rotation = angle;
+			}
+			bomb.x += speedBomb * Math.sin(bomb.rotation * Math.PI / 180);
+			bomb.y -= speedBomb* Math.cos(bomb.rotation * Math.PI / 180);     
+		}
 	}   
 }
