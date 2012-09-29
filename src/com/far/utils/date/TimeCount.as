@@ -8,13 +8,11 @@ package com.far.utils.date
 	{
 		private var timer:Timer;
 		private var  fun:Function;
-		private var target:Object;
 		private var date:Date;
 	
 
-		public function TimeCount(defaultTime:Number,fun:Function,target:Object)
+		public function TimeCount(defaultTime:Number,fun:Function)
 		{
-			this.target = target;
 			this.fun = fun;
 			date= new Date();
 			date.setTime(defaultTime);
@@ -26,7 +24,7 @@ package com.far.utils.date
 		protected function timerHandler(event:TimerEvent):void
 		{
 			date.setTime(date.getTime()+1000);
-			fun.apply(target,[formatTime(date)]);
+			fun.apply(null,[formatTime(date)]);
 		}
 		
 		public static function formatTime(d:Date):String
@@ -56,6 +54,12 @@ package com.far.utils.date
 			sb += seconds;
 			
 			return sb;
+		}
+		public function clear():void{
+			timer.stop();
+			timer.removeEventListener(TimerEvent.TIMER,timerHandler);
+			timer=null;
+			date= null;
 		}
 	}
 }
