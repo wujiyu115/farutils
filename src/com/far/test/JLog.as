@@ -3,7 +3,7 @@
 
 	/**
 	 * 测试类
-	 * 
+	 *
 	 *  addChild(JLog.instance);
 	 *	JLog.author="Jason";
 	 *	JLog.trace("hello",0xff0000,true,"Jason");
@@ -12,7 +12,7 @@
 	 */
 	public class JLog extends Object
 	{
-		private static var _enable:Boolean=true;
+		private static var _enable:Boolean;
 		public static var author:String="";
 
 		public function JLog()
@@ -47,29 +47,21 @@
 			return JLogPanel.instance;
 		}
 
-		public static function trace(message:String, authors:String="",color:uint=0x000000):void
+		public static function trace(message:String, authors:String="", color:uint=0x000000):void
 		{
 			var _loc_4:String="";
-			if (authors == "")
+			if (author != authors)
 			{
-				_loc_4=String(message);
-				instance.addMessage(_loc_4, color);
+				return;
 			}
-			else
-			{
-				if (author != authors)
-				{
-					return;
-				}
-				_loc_4=String(message);
-				instance.addMessage(_loc_4, color);
-			}
+			_loc_4=String(message);
+			instance.addMessage(_loc_4, color);
 		}
 
 	}
 }
 
-import com.far.test.JLog;
+
 
 import flash.display.*;
 import flash.events.*;
@@ -99,6 +91,7 @@ class JLogPanel extends Sprite
 
 	private function addToStage(event:Event):void
 	{
+		this.visible=false;
 		this.removeEventListener(Event.ADDED_TO_STAGE, addToStage);
 		this.initView();
 		this.initContextMenu();
@@ -340,6 +333,11 @@ class JLogPanel extends Sprite
 		this._fps=new FPS();
 		addChild(this._fps);
 		this._fps.x=0;
+		var txt:TextField=new TextField();
+		txt.defaultTextFormat=new TextFormat("Tahoma", 10, 13421772);
+		txt.text="Ctrl隐藏";
+		txt.x=130;
+		addChild(txt);
 		return;
 	}
 
@@ -377,7 +375,7 @@ class JLogPanel extends Sprite
 	public function addMessage(str:String, color:uint=0x000000):void
 	{
 		var message:String="<p><font color=\'#" + color.toString(16) + "\'>" + str + "</p>";
-		this._message.htmlText=this._message.htmlText + message;  
+		this._message.htmlText=this._message.htmlText + message;
 		return;
 	}
 
@@ -428,16 +426,19 @@ class JLogPanel extends Sprite
 		}
 		return _instance;
 	}
-	
-	private function   initContextMenu():void{
-		var myContextMenu:ContextMenu = new ContextMenu();
-		var item:ContextMenuItem = new ContextMenuItem("清除内容");
+
+	private function initContextMenu():void
+	{
+		var myContextMenu:ContextMenu=new ContextMenu();
+		var item:ContextMenuItem=new ContextMenuItem("清除内容");
 		myContextMenu.customItems.push(item);
 		item.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, menuSelectHandler);
-		this.contextMenu = myContextMenu;
+		this.contextMenu=myContextMenu;
 	}
-	private function menuSelectHandler(event:ContextMenuEvent):void{
-		this._message.text ="";
+
+	private function menuSelectHandler(event:ContextMenuEvent):void
+	{
+		this._message.text="";
 	}
 
 }
@@ -446,8 +447,8 @@ class JConstList extends Object
 {
 	public static const JPANEL_BG_COLOR:uint=0xeeebeb; //背景色
 	public static const JPANEL_BG_ALPHA:Number=1;
-	public static const JPANEL_DEFAULT_WIDTH:int=450; //宽
-	public static const JPANEL_DEFAULT_HEIGHT:int=350; //高
+	public static const JPANEL_DEFAULT_WIDTH:int=200; //宽
+	public static const JPANEL_DEFAULT_HEIGHT:int=175; //高
 	public static const JPANEL_TITLT_BAR_HEIGHT:int=25; //标题高
 	public static const TB_COLORS:Array=[5855577, 2500134, 1644825, 460551];
 	public static const TB_ALPHAS:Array=[1, 1, 1, 1];
