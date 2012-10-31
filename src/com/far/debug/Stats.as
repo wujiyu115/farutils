@@ -15,7 +15,7 @@
  *
  **/
 
-package com.far.test {
+package com.far.debug {
 	
 	import flash.display.BitmapData;
 	import flash.display.Sprite;

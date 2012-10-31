@@ -1,4 +1,4 @@
-﻿package com.far.test
+﻿package com.far.debug
 {
 
 	/**
