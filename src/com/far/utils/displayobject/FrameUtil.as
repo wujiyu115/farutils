@@ -74,5 +74,25 @@ package  com.far.utils.displayobject{
 			
 			target.addFrameScript(frame - 1, null);
 		}
+		
+		/**
+		 *跳帧显示数字
+		 * @param target 要跳转的父容器
+		 * @param value   值
+		 * @param digit   多少位
+		 * @param childPrefix 子级名称前置名  v_0
+		 *
+		 */
+		public static function jumpFame(target:MovieClip, value:int, digit:int=6, childPrefix:String="v_"):void
+		{
+			for (var k:int=0; k < digit; k++)
+			{
+				var divide:int=Math.pow(10, k);
+				var values:int=int(value / divide % 10);
+				var mc:MovieClip=target[childPrefix + k];
+				if (mc)
+					mc.gotoAndStop(values + 1);
+			}
+		}
 	}
 }
