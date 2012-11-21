@@ -2,6 +2,9 @@ package  com.far.utils.displayobject
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
+	import flash.display.IBitmapDrawable;
+	import flash.display.MovieClip;
 	import flash.geom.Matrix;
 	
 	/**
@@ -66,6 +69,26 @@ package  com.far.utils.displayobject
 			var bmpData:BitmapData = new BitmapData(bmp.width, bmp.height, true, 0);
 			matrix.d = -1;
 			matrix.ty = bmp.y + bmp.height;
+			bmpData.draw(bmp, matrix);
+			return bmpData;
+		}
+		
+		
+		/**
+		 *生成缩略图 
+		 * @param bmp
+		 * @param width
+		 * @param height
+		 * @return 
+		 * 
+		 */		
+		public static function thumbBitmap(bmp:DisplayObject,width:int,height:int):BitmapData
+		{
+			var scaleX:Number = width/bmp.width;
+			var scaleY:Number = height/bmp.height;
+			var matrix:Matrix = new Matrix();
+			var bmpData:BitmapData = new BitmapData(width, height, true, 0);
+			matrix.scale(scaleX,scaleY);
 			bmpData.draw(bmp, matrix);
 			return bmpData;
 		}
