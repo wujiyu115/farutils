@@ -5,6 +5,7 @@ package  com.far.utils.displayobject
 	import flash.display.DisplayObject;
 	import flash.display.IBitmapDrawable;
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.geom.Matrix;
 	
 	/**
@@ -91,6 +92,20 @@ package  com.far.utils.displayobject
 			matrix.scale(scaleX,scaleY);
 			bmpData.draw(bmp, matrix);
 			return bmpData;
+		}
+		
+		/**
+		 *平铺背景图
+		 *  
+		 * @param bmd
+		 * @param container
+		 * @return 
+		 * 
+		 */		
+		public static function bitmapData(bmd:BitmapData,container:Sprite):Sprite{
+			container.graphics.beginBitmapFill(bitmapData);
+			container.graphics.drawRect(0, 0, container.stage.stageWidth, container.stage.stageHeight);
+			container.graphics.endFill();
 		}
 	}
 

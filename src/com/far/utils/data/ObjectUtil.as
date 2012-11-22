@@ -2,6 +2,7 @@ package com.far.utils.data
 {
 	import flash.net.registerClassAlias;
 	import flash.utils.ByteArray;
+	import flash.utils.describeType;
 	import flash.utils.getDefinitionByName;
 	import flash.utils.getQualifiedClassName;
 
@@ -18,7 +19,7 @@ package com.far.utils.data
 		 * @param source:Object —— 源对象，克隆对象的主体
 		 * @return * —— 源对象的克隆对象
 		 */
-		public static function clone(source:Object):*
+		public static function deepClone(source:Object):*
 		{
 			var bytes:ByteArray=new ByteArray();
 			var className:String=getQualifiedClassName(source);
@@ -29,6 +30,87 @@ package com.far.utils.data
 			bytes.position=0;
 			return bytes.readObject();
 		}
+		
+		/**
+		 * 浅复制一个对象<br/>
+		 * 对象浅度复制 : 将实例及子实例的所有成员(属性和方法, 静态的除外)都复制一遍, (引用不必重新分配空间!)
+		 * 
+		 * @param	obj
+		 * @return
+		 */
+		static public function clone(obj:*):*
+		{
+			if (obj == null
+				|| obj is Class
+				|| obj is Function
+				|| isPrimitiveType(obj))
+			{
+				return obj;
+			}
+			
+			var xml:XML = describeType(obj);
+			var o:* = new (Object(obj).constructor as Class);
+			// clone var variables
+			for each(var key:XML in xml.variable)
+			{
+				o[key.@name] = obj[key.@name];
+			}
+			// clone getter setter, if the accessor is "readwrite" then set this accessor.
+			for each(key in xml.accessor)
+			{
+				if("readwrite" == key.@access)
+					o[key.@name] = obj[key.@name];
+			}
+			// clone dynamic variables
+			for (var k:String in obj)
+			{
+				o[k] = obj[k];
+			}
+			return o;
+		}
+		
+		/**
+		 * 测试是否为原始类型 , Booelan, Number, String
+		 * @param	o
+		 * @return
+		 */
+		static public function isPrimitiveType(o:*):Boolean
+		{
+			return o is Boolean || o is Number || o is String;
+		}
+		
+		
+		
+		/**
+		 * 绑定一个对象的值到另一个对象
+		 *
+		 * @param	obj
+		 * @return
+		 */
+		static public function bind(source:*,target:*):void
+		{
+			
+			var xml:XML=describeType(source);
+			// clone var variables
+			for each (var key:XML in xml.variable)
+			{
+				if(target[key.@name])
+					target[key.@name]=source[key.@name];
+			}
+			// clone getter setter, if the accessor is "readwrite" then set this accessor.
+			for each (key in xml.accessor)
+			{
+				if ("readwrite" == key.@access&&target[key.@name])
+					target[key.@name]=source[key.@name];
+			}
+			// clone dynamic variables
+			for (var k:String in source)
+			{
+				if(target[k])
+					target[k]=source[k];
+			}
+		}
+		
 
 		/**
 		 * 判断对象是否为空
