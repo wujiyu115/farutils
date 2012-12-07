@@ -112,6 +112,19 @@
 			return Number(value.toFixed(fractionDigits));
 		}
 		
+		/**
+		 *随机一个区段中的数 
+		 * @param min
+		 * @param max
+		 * @return 
+		 * 
+		 */		
+		public static function randomNumber(min:Number, max:Number):Number {  
+			
+			return Math.floor(Math.random() * (1 + max - min) + min);  
+			
+		}
+		
 	
 	}
 

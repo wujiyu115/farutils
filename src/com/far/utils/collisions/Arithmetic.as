@@ -158,5 +158,24 @@ package  com.far.utils.collisions
 			bomb.x += speedBomb * Math.sin(bomb.rotation * Math.PI / 180);
 			bomb.y -= speedBomb* Math.cos(bomb.rotation * Math.PI / 180);     
 		}
+		
+		/**
+		 *得到等分圆的等分点 
+		 * @param r
+		 * @param divide
+		 * @return 
+		 * 
+		 */		
+		public static function getDividePoint(r:int,divide:int):Vector.<Point>{
+			var ve:Vector.<Point> =new Vector.<Point>(divide);
+			for (var n:int=0; n < divide; n++)
+			{
+				var x:int=int(r * Math.cos(2 * n * Math.PI / divide-Math.PI/2));
+				var y:int=int(r * Math.sin(2 * n * Math.PI / divide-Math.PI/2));
+				ve[n] = new Point(x,y);
+			}
+			return ve;
+		}
+
 	}   
 }
