@@ -98,6 +98,22 @@ package app.activity.weekendbubble.util
 			var second:int=int(differ / (1000)) - (day * 86400) - (hour * 3600) - (minute * 60);
 			return second;
 		}
+		/**
+		 *是否在同一天 
+		 * @param time1
+		 * @param time2
+		 * @return 
+		 * 
+		 */		
+		public function isOneDay(time1:Number, time2:Number):Boolean
+		{
+			var seconds:Number=(time1 - time2);
+			var hours:int=int(seconds / 3600);
+			hours= int(Math.abs(hours));
+			if (hours >= 24)
+				return false;
+			return true;
+		}
 
 	
 }
